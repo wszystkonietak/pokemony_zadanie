@@ -16,8 +16,6 @@ const parsedData = "";
 const data = JSON.parse(fs.readFileSync( filePath ).toString());
 const types = JSON.parse(fs.readFileSync( typesPath ).toString());
 
-
-
 app.get('/', (req, res) => {
   
   const obj = JSON.parse(json);
@@ -31,12 +29,32 @@ app.get('/data', (req, res) => {
 });
 
 app.get('/types', (req, res) => {
-
+  
   res.send(types); 
 });
 
 app.get('/dwa', (req, res) => {
   res.send(data); 
+});
+
+app.get('/pokemony', (req, res) => {
+  console.log(req.query)
+  let isPokemonValid = false;
+  const new_pokemony = [];
+  data.map((pokemon) => {
+    isPokemonValid = false;
+    pokemon.type.map((pokemon_type) => {
+      req.query.validTypesKey.map((type) => {
+        if(type == pokemon_type) {
+          isPokemonValid = true;
+        }
+      })
+    })    
+    if(isPokemonValid) {
+      new_pokemony.push(pokemon)
+    }
+  })
+  res.send(new_pokemony); 
 });
 
 app.listen(8080, () => {
