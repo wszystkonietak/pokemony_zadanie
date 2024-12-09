@@ -38,9 +38,15 @@ app.get('/dwa', (req, res) => {
 });
 
 app.get('/pokemony', (req, res) => {
-  console.log(req.query)
+  
   let isPokemonValid = false;
   const new_pokemony = [];
+  console.log(req.query) 
+
+  if(Object.keys(req.query).length == 0) {
+    res.json([])
+    return
+  }
   data.map((pokemon) => {
     isPokemonValid = false;
     pokemon.type.map((pokemon_type) => {

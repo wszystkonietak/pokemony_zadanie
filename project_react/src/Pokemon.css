@@ -1,0 +1,12 @@
+.pokemon {
+    width: 400px;
+    height: 400px;
+    border-style: solid;
+
+}
+
+img {
+    margin: 10%;
+    padding-left: 10px;
+    width: 75%;
+}
