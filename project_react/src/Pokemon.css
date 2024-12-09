@@ -5,6 +5,13 @@
 
 }
 
+.pokemon:active  { 
+    background-color: white;
+    position:absolute;
+    width: 1000px;
+    height: 1000px;
+}
+
 img {
     margin: 10%;
     padding-left: 10px;

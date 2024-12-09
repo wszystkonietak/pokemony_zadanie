@@ -51,7 +51,7 @@ app.get('/pokemony', (req, res) => {
     isPokemonValid = false;
     pokemon.type.map((pokemon_type) => {
       req.query.validTypesKey.map((type) => {
-        if(type == pokemon_type) {
+        if(type == pokemon_type && (pokemon.name.english.includes(req.query.text) || req.query.text == '') ) {
           isPokemonValid = true;
         }
       })

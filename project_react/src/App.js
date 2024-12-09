@@ -9,6 +9,7 @@ function App() {
   const [types, setTypes] = useState([]);
   const [pokemony, setPokemony] = useState([]);
   const [language, setLanguage] = useState("english");
+  const [nazwa, setNazwa] = useState("");
 
 
   useEffect(() => {
@@ -23,6 +24,27 @@ function App() {
       })
       .catch((error) => { });
   }, []);
+
+  useEffect(() => {
+    console.log(typeof(nazwa))
+    const validTypes = []
+    types.map((type2) => {
+      if (type2.checked) {
+        validTypes.push(type2.english)
+      }
+    })
+    axios
+      .get('http://localhost:8080/pokemony', {
+        params: {
+          validTypesKey: validTypes,
+          text: nazwa
+        }
+      })
+      .then((response) => {
+        setPokemony(response.data);
+      })
+      .catch((error) => { });
+  }, [nazwa]);
 
   const changeState = (index) => {
     types[index].checked = ! types[index].checked;
@@ -39,7 +61,8 @@ function App() {
     axios
       .get('http://localhost:8080/pokemony', {
         params: {
-          validTypesKey: validTypes
+          validTypesKey: validTypes,
+          text: nazwa
         }
       })
       .then((response) => {
@@ -51,6 +74,7 @@ function App() {
 
   return (
     <>
+    <input type='textbox' onInput={e => {setNazwa(e.target.value)}} placeholder='Podaj nazwe pokemona'></input><br></br>
       <input type='radio' defaultChecked={true} name="a" onClick={() => {setLanguage("english")}}></input>english<br></br>
       <input type='radio' name="a" onClick={() => {setLanguage("japanese")}}></input>japanese<br></br>
       <input type='radio' name="a" onClick={() => {setLanguage("chinese")}}></input>chinese<br></br>
@@ -58,7 +82,7 @@ function App() {
       <div>
         {
           types.map((value, index) => {
-            return <div> <input type='checkbox' checked={value.checked}  onChange={() => {changeState(index)}}></input>{value.english}</div>
+            return <div> <input  type='checkbox' checked={value.checked}  onChange={() => {changeState(index)}}></input>{value.english}</div>
           })
         }
         <div id='pokemony_tablica'>

@@ -12,16 +12,23 @@ function Pokemon({ a, lang }) {
 
   return (
     
-    <div class="pokemon">
+    <div className="pokemon" >
       {lang == "english" && a.name.english}
       {lang == "japanese" && a.name.japanese}
       {lang == "chinese" && a.name.chinese}
       {lang == "french" && a.name.french} 
-      <a> {a.base.HP} </a>
-      <a>{a.base.Attack} </a>
-      <a>{a.base.Defense} </a>
-      <a>{a.base["Sp. Attack"]} </a>
-      
+      <br></br>
+      <a> HP: {a.base.HP} </a>
+      <a> Attack: {a.base.Attack} </a>
+      <a> Defense: {a.base.Defense} </a><br></br>
+      <a> Sp. Attack: {a.base["Sp. Attack"]} </a>
+      <a> Sp. Defense: {a.base["Sp. Defense"]} </a>
+      <a> Speed: {a.base["Speed"]} </a><br></br>
+      {
+        a.type.map((pokemon_type) => {
+          return <a>{pokemon_type} </a>
+        })
+      }
       
       <img  src={imageList[a.id - 1]} />
       
